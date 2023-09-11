@@ -25,6 +25,7 @@ namespace Full_GRASP_And_SOLID.Library
             this.steps.Remove(step);
         }
 
+
         // Se utiliza el princpio SRP ya que asigno la responsabilidad de caclular el costo de producción a un metodo        
         // separado, en este caso GetProductionCost()        
 
@@ -35,30 +36,51 @@ namespace Full_GRASP_And_SOLID.Library
 
             foreach (Step step in this.steps)
             {
-                // Calculo el costo de insumos 
                 costInsumos += step.Input.UnitCost * step.Quantity;
-
-                // Calculo el costo de equipamiento 
                 costEquipamiento += (step.Time / 60) * step.Equipment.HourlyCost;
             }
 
-            // Calculo el costo total
             double totalCost = costInsumos + costEquipamiento;
             return totalCost;
         }
 
-        public void PrintRecipe()
+        // Método para imprimir la receta utilizando un ConsolePrinter
+        public void PrintRecipe(ConsolePrinter printer)
         {
-            Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
-            foreach (Step step in this.steps)
+            printer.Print(this);
+        }
+    }
+
+    // Clase ConsolePrinter para imprimir las recetas en la consola
+    public class ConsolePrinter
+    {
+        public void Print(Recipe recipe)
+        {
+            Console.WriteLine($"Receta de {recipe.FinalProduct.Description}:");
+            foreach (Step step in recipe.steps)
             {
                 Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
                     $"usando '{step.Equipment.Description}' durante {step.Time}");
             }
 
-            // Aquí muestro el costo total de producción
-            double productionCost = GetProductionCost();
+            double productionCost = recipe.GetProductionCost();
             Console.WriteLine($"Costo total de producción: {productionCost:C}");
         }
     }
 }
+
+// public void PrintRecipe()
+// {
+//     Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
+//     foreach (Step step in this.steps)
+//     {
+//         Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
+//             $"usando '{step.Equipment.Description}' durante {step.Time}");
+//     }
+
+//     // Aquí muestro el costo total de producción
+//     double productionCost = GetProductionCost();
+//     Console.WriteLine($"Costo total de producción: {productionCost:C}");
+// }
+//     }
+// }
