@@ -3,7 +3,6 @@
 // Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 //-------------------------------------------------------------------------
-
 using System;
 using System.Collections;
 using System.Linq;
@@ -14,7 +13,6 @@ namespace Full_GRASP_And_SOLID
     public class Program
     {
         private static ArrayList productCatalog = new ArrayList();
-
         private static ArrayList equipmentCatalog = new ArrayList();
 
         public static void Main(string[] args)
@@ -25,7 +23,12 @@ namespace Full_GRASP_And_SOLID
             recipe.FinalProduct = GetProduct("Café con leche");
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
-            recipe.PrintRecipe();
+
+            // Crear una instancia de ConsolePrinter
+            ConsolePrinter printer = new ConsolePrinter();
+
+            // Llamar al método PrintRecipe con la instancia de ConsolePrinter como argumento
+            recipe.PrintRecipe(printer);
         }
 
         private static void PopulateCatalogs()
@@ -71,3 +74,5 @@ namespace Full_GRASP_And_SOLID
         }
     }
 }
+
+

@@ -11,7 +11,7 @@ namespace Full_GRASP_And_SOLID.Library
 {
     public class Recipe
     {
-        private ArrayList steps = new ArrayList();
+        public ArrayList steps = new ArrayList();
 
         public Product FinalProduct { get; set; }
 
@@ -51,7 +51,9 @@ namespace Full_GRASP_And_SOLID.Library
         }
     }
 
-    // Clase ConsolePrinter para imprimir las recetas en la consola
+    // Clase ConsolePrinter para imprimir las recetas en la consola. Esto sigue el principio SOLID de Inversión 
+    // de Dependencia (DIP), ya que la impresión se realiza a través de una abstracción 
+    // (ConsolePrinter) en lugar de depender directamente de la implementación de impresión.
     public class ConsolePrinter
     {
         public void Print(Recipe recipe)
